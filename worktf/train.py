@@ -34,13 +34,13 @@ ru_training_data = read_files(ru_training_data_path)
 ru_validation_data = read_files(ru_validation_data_path)
 
 max_lenght = 500
-train_dataset = [[es_sentence, en_sentence] for es_sentence, en_sentence in zip(ru_training_data, en_training_data) if len(es_sentence) <= max_lenght and len(en_sentence) <= max_lenght]
-val_dataset = [[es_sentence, en_sentence] for es_sentence, en_sentence in zip(ru_validation_data, en_validation_data) if len(es_sentence) <= max_lenght and len(en_sentence) <= max_lenght]
-es_training_data, en_training_data = zip(*train_dataset)
-es_validation_data, en_validation_data = zip(*val_dataset)
+train_dataset = [[ru_sentence, en_sentence] for ru_sentence, en_sentence in zip(ru_training_data, en_training_data) if len(ru_sentence) <= max_lenght and len(en_sentence) <= max_lenght]
+val_dataset = [[ru_sentence, en_sentence] for ru_sentence, en_sentence in zip(ru_validation_data, en_validation_data) if len(ru_sentence) <= max_lenght and len(en_sentence) <= max_lenght]
+ru_training_data, en_training_data = zip(*train_dataset)
+ru_validation_data, en_validation_data = zip(*val_dataset)
 
 tokenizer = CustomTokenizer(char_level=True)
-tokenizer.fit_on_texts(es_training_data)
+tokenizer.fit_on_texts(ru_training_data)
 tokenizer.save(configs.model_path + "/tokenizer.json")
 
 detokenizer = CustomTokenizer(char_level=True)

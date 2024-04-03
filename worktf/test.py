@@ -40,20 +40,20 @@ def read_files(path):
     return en_train_dataset
 
 en_validation_data_path = "Datasets/en-ru/opus.en-ru-dev.en"
-es_validation_data_path = "Datasets/en-ru/opus.en-ru-dev.ru"
+ru_validation_data_path = "Datasets/en-ru/opus.en-ru-dev.ru"
 
 en_validation_data = read_files(en_validation_data_path)
-es_validation_data = read_files(es_validation_data_path)
+ru_validation_data = read_files(ru_validation_data_path)
 
 max_lenght = 500
-val_examples = [[es_sentence, en_sentence] for es_sentence, en_sentence in zip(es_validation_data, en_validation_data) if len(es_sentence) <= max_lenght and len(en_sentence) <= max_lenght]
+val_examples = [[ru_sentence, en_sentence] for ru_sentence, en_sentence in zip(ru_validation_data, en_validation_data) if len(ru_sentence) <= max_lenght and len(en_sentence) <= max_lenght]
 
 translator = PtEnTranslator("Models/09_translation_transformer/202308241514/model.onnx")
 
 val_dataset = []
-for es, en in val_examples:
-    results, duration = translator.predict(es)
-    print("Russian:     ", es.lower())
+for ru, en in val_examples:
+    results, duration = translator.predict(ru)
+    print("Russian:     ", ru.lower())
     print("English:     ", en.lower())
     print("English pred:", results)
     print(duration)
