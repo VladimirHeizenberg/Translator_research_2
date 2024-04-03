@@ -39,8 +39,8 @@ def read_files(path):
         en_train_dataset = f.read().split("\n")[:-1]
     return en_train_dataset
 
-en_validation_data_path = "Datasets/en-es/opus.en-es-dev.en"
-es_validation_data_path = "Datasets/en-es/opus.en-es-dev.es"
+en_validation_data_path = "Datasets/en-ru/opus.en-ru-dev.en"
+es_validation_data_path = "Datasets/en-ru/opus.en-ru-dev.ru"
 
 en_validation_data = read_files(en_validation_data_path)
 es_validation_data = read_files(es_validation_data_path)
@@ -53,7 +53,7 @@ translator = PtEnTranslator("Models/09_translation_transformer/202308241514/mode
 val_dataset = []
 for es, en in val_examples:
     results, duration = translator.predict(es)
-    print("Spanish:     ", es.lower())
+    print("Russian:     ", es.lower())
     print("English:     ", en.lower())
     print("English pred:", results)
     print(duration)
